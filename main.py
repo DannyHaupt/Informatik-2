@@ -1,36 +1,46 @@
 import pygame
 import sys
+import random
 
-# Pygame starten
 pygame.init()
 
 # Fenster
 BREITE = 800
 HOEHE = 600
 fenster = pygame.display.set_mode((BREITE, HOEHE))
-pygame.display.set_caption("Space Invader Anfang")
+pygame.display.set_caption("Space Invader")
 
 # Farben
 WEISS = (255, 255, 255)
 BLAU = (0, 100, 255)
 ROT = (255, 0, 0)
+GRUEN = (0, 200, 0)
 
-# Spieler (Quadrat)
-quadrat_breite = 100
-quadrat_x = 350
+# Spieler
+quadrat_breite = 60
+quadrat_x = BREITE // 2 - quadrat_breite // 2
 quadrat_y = HOEHE - quadrat_breite - 10
 geschwindigkeit = 5
 
 # Schüsse
 schuesse = []
 letzter_schuss = 0
-schuss_intervall = 300  # Millisekunden
+schuss_intervall = 300
+schuss_breite = 8
+schuss_länge = 30
+schuss_geschwindigkeit = 10
 
-# Uhr
+# Gegner
+gegner = []
+letzter_gegner = 0
+gegner_intervall = 80
+gegner_groesse = 40
+gegner_geschwindigkeit = 3
+
 clock = pygame.time.Clock()
 
-# Hauptschleife
 while True:
+    # Events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -44,13 +54,13 @@ while True:
     if tasten[pygame.K_RIGHT]:
         quadrat_x += geschwindigkeit
 
-    # Im Fenster halten
+    # Begrenzung
     if quadrat_x < 0:
         quadrat_x = 0
     if quadrat_x > BREITE - quadrat_breite:
         quadrat_x = BREITE - quadrat_breite
 
-    # 🔫 Automatisch schießen
+    # 🔫 Schießen
     jetzt = pygame.time.get_ticks()
     if jetzt - letzter_schuss > schuss_intervall:
         schuesse.append([quadrat_x + quadrat_breite // 2, quadrat_y])
@@ -58,10 +68,23 @@ while True:
 
     # Schüsse bewegen
     for schuss in schuesse:
-        schuss[1] -= 10
+        schuss[1] -= schuss_geschwindigkeit
 
-    # Alte Schüsse entfernen
+    # Schüsse löschen
     schuesse = [s for s in schuesse if s[1] > 0]
+
+    # 👾 Gegner spawnen
+    if jetzt - letzter_gegner > gegner_intervall:
+        x = random.randint(0, BREITE - gegner_groesse)
+        gegner.append([x, 0])
+        letzter_gegner = jetzt
+
+    # Gegner bewegen
+    for g in gegner:
+        g[1] += gegner_geschwindigkeit
+
+    # Gegner löschen
+    gegner = [g for g in gegner if g[1] < HOEHE]
 
     # Zeichnen
     fenster.fill(WEISS)
@@ -71,8 +94,11 @@ while True:
 
     # Schüsse
     for schuss in schuesse:
-        pygame.draw.rect(fenster, ROT, (schuss[0], schuss[1], 5, 10))
+        pygame.draw.rect(fenster, ROT, (schuss[0], schuss[1], schuss_breite, schuss_länge))
+
+    # Gegner
+    for g in gegner:
+        pygame.draw.rect(fenster, GRUEN, (g[0], g[1], gegner_groesse, gegner_groesse))
 
     pygame.display.flip()
-
     clock.tick(60)
