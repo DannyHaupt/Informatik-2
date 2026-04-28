@@ -1,0 +1,38 @@
+{
+  "coins": 0,
+  "best_distance": {},
+  "selected_vehicle": "jeep",
+  "selected_level": "countryside",
+  "owned_vehicles": [
+    "jeep"
+  ],
+  "owned_levels": [
+    "countryside"
+  ],
+  "upgrades": {
+    "jeep": {
+      "engine": 1,
+      "grip": 1,
+      "suspension": 1,
+      "fuel": 1
+    },
+    "buggy": {
+      "engine": 1,
+      "grip": 1,
+      "suspension": 1,
+      "fuel": 1
+    },
+    "truck": {
+      "engine": 1,
+      "grip": 1,
+      "suspension": 1,
+      "fuel": 1
+    },
+    "racer": {
+      "engine": 1,
+      "grip": 1,
+      "suspension": 1,
+      "fuel": 1
+    }
+  }
+}

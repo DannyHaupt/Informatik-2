@@ -1,0 +1,40 @@
+{
+  "coins": 6508,
+  "selected_vehicle": "jeep",
+  "selected_level": "country",
+  "owned_vehicles": [
+    "jeep"
+  ],
+  "owned_levels": [
+    "country"
+  ],
+  "best": {
+    "country": 3743
+  },
+  "upgrades": {
+    "jeep": {
+      "engine": 1,
+      "tires": 1,
+      "suspension": 1,
+      "fuel": 1
+    },
+    "buggy": {
+      "engine": 1,
+      "tires": 1,
+      "suspension": 1,
+      "fuel": 1
+    },
+    "truck": {
+      "engine": 1,
+      "tires": 1,
+      "suspension": 1,
+      "fuel": 1
+    },
+    "rally": {
+      "engine": 1,
+      "tires": 1,
+      "suspension": 1,
+      "fuel": 1
+    }
+  }
+}
